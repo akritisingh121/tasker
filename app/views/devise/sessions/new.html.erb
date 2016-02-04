@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>
+    Tasker
+  </title>
+  <link rel="stylesheet" type="text/css" href="style.css" media="screen">
+</head>
+
+<body>
+<div class="wrapper">
+  <header class="header">
+    <%= link_to 'Tasker', root_path, class: 'taskertitle'%>
+    <div class="taskersub"> The Social To-Do List </div>
+  </header>
+
+<div class="authform">
+  <div class="signinbubble">
+  <%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => { :role => 'form'}) do |f| %>
+    <div class="pagetitle">Log in</div>
+    <%= devise_error_messages! %>
+      <div class="form-group">
+      <%= f.email_field :email, class: 'field', placeholder: 'Email' %>
+    </div>
+    <div class="form-group">
+      <%= f.password_field :password, class: 'field', placeholder: 'Password' %>
+    </div>
+    <% if devise_mapping.rememberable? -%>
+        <div class="checkbox">
+          <label style="font-size: 20px">
+            <%= f.check_box :remember_me %> Remember me
+          </label>
+        </div>
+      <% end -%>
+    <%= f.submit 'Log in', :class => 'clicky' %>
+      <br>
+      <%- if devise_mapping.recoverable? %>
+        <%= link_to "Forgot password?", new_password_path(resource_name), class: 'clickable' %>
+      <% end -%>
+      <br>
+      <br>
+
+  <% end %>
+
+<br>
+      <br>
+  <div class="form-group">
+      <%- if devise_mapping.registerable? %>
+        <div style="margin-bottom: -5px"> Don't have an account?</div>
+        <br>
+        <br>
+        <%= link_to 'Sign up', new_registration_path(resource_name), class: 'clicky'  %>
+      <% end -%>
+      <br>
+      <br>
+      </div>
+
+</div>
+
+  </div>
+  <footer class="footer">
+    Copyrighted by us in 2015
+  </footer>
+</div>
+</body>
+</html>
+

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>
+    Tasker
+  </title>
+  <link rel="stylesheet" type="text/css" href="style.css" media="screen">
+</head>
+
+<body>
+  <div class="wrapper">
+    <header class="header">
+      <%= link_to 'Tasker', root_path, class: 'taskertitle'%>
+      <div class="taskersub"> The Social To-Do List </div>
+   </header>
+
+
+<div class="navbox">
+    <div class="button"> <%= link_to 'Home', root_path %></div>
+    
+    <% if user_signed_in? %>
+    <div class="button"><%= link_to 'My Profile', current_user %></div>
+    <div class="button"> <%= link_to 'Edit Your User', edit_user_registration_path %></div>
+      <div class="rightbutton">
+        <%= link_to 'Log Out', destroy_user_session_path, :method=>'delete' %>
+      <% else %>
+          <%= link_to 'Log In', user_session_path %>
+          <%= link_to 'Sign Up', new_user_registration_path %>
+      <% end %> 
+  </div>
+</div>
+  <div class="signinbubble">
+  <div class="pagetitle">Edit <%= resource_name.to_s.humanize %></div>
+  <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :role => 'form'}) do |f| %>
+    <%= devise_error_messages! %>
+    <div class="form-group">
+
+      <%= f.text_field :name, :autofocus => true, class: 'field', placeholder: 'Name' %>
+    </div>
+    <div class="form-group">
+      <%= f.email_field :email, class: 'field', placeholder: 'Email' %>
+      <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+        <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+      <% end %>
+    </div>
+    <br>
+      <p>Leave these fields blank if you don't want to change your password.</p>
+      <div class="form-group">
+        <%= f.password_field :password, :autocomplete => 'off', class: 'field', placeholder: 'Password'  %>
+      </div>
+      <div class="form-group">
+        <%= f.password_field :password_confirmation, class: 'field', placeholder: 'Password Confirmation'  %>
+      </div>
+
+      <p>You must enter your current password to make changes.</p>
+      <div class="form-group">
+        <%= f.password_field :current_password, class: 'field', placeholder: 'Current Password'  %>
+      </div>
+    <%= f.submit 'Update', :class => 'clicky' %>
+  <% end %>
+<h3>Cancel Account</h3>
+<p>Unhappy? We'll be sad to see you go.</p>
+<%= button_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete, :class => 'clicky' %>
+</div>
+</div>
+<footer class="footer">
+    Copyrighted by us in 2015
+  </footer>
+</div>
+</body>
+</html>

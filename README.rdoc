@@ -1,0 +1,28 @@
+== README
+
+Title: Tasker
+Team Members: Natalia Layson, Ivette Flores, Akriti Singh
+Demo Link: 
+
+Idea: An application where users can post their tasks for their friends to see. Users can prioritize tasks, finish tasks (and delete) or they can give up on a task. Thier friends can follow eachother and stay updated on what their friends are working on or what they have completed. When a user completes a task, they get a cute picture.
+
+Models and Description:
+User
+-has name, email, and many tasks
+Task
+-has task and boolean for completion
+-some tasks can be prioritized
+Friendship
+-Join table, has a_id and b_id
+
+Features:
+Users can log in
+Users can create tasks
+Users can mark tasks as complete
+Users can prioritize tasks
+Users can follow other users
+
+Division of Labor:
+Natalia: Task Model & Task relations
+Ivette: Friendship Model & User connections
+Akriti:  User Model & UI

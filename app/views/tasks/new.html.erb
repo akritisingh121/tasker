@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>
+		Tasker
+	</title>
+	<link rel="stylesheet" type="text/css" href="style.css" media="screen">
+</head>
+
+<body>
+<div class="wrapper">
+	<header class="header">
+		<%= link_to 'Tasker', root_path, class: 'taskertitle'%>
+	    <div class="taskersub"> The Social To-Do List </div>
+	</header>
+
+	<div class="navbox">
+		<div class="button"> <%= link_to 'Home', root_path %></div>
+		<% if user_signed_in? %>
+			<div class="button"><%= link_to 'My Profile', current_user %></div>
+			<div class="rightbutton"><%= link_to 'Log Out', destroy_user_session_path, :method=>'delete' %></div>
+			<div class="rightbutton"><%= link_to 'Welcome,', edit_user_registration_path %> <%= current_user.name %> </div>
+		<% else %>
+  			<div class="rightbutton"><%= link_to 'Log In', user_session_path %></div>
+  			<div class="rightbutton"><%= link_to 'Sign Up', new_user_registration_path %></div>
+		<% end %> 
+	</div>
+
+	<div class="main">
+<div class="signinbubble">
+<div class="pagetitle">Create New Task</div>
+<%= simple_form_for @task do |f| %>
+  <%= f.input :todo, :input_html => { :class => 'field', :id => "todo"}, placeholder: 'Task', :label => "" %>
+  <%= f.submit 'Create new task', :class => 'clicky'%>
+<% end %>
+</div>
+
+	</div>
+	<footer class="footer">
+    Copyrighted by us in 2015
+  </footer>
+</div>
+</body>
+</html>

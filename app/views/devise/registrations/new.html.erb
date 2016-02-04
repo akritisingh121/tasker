@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>
+    Tasker
+  </title>
+  <link rel="stylesheet" type="text/css" href="style.css" media="screen">
+</head>
+
+<body>
+  <div class="wrapper">
+    <header class="header">
+      <%= link_to 'Tasker', root_path, class: 'taskertitle'%>
+	  <div class="taskersub"> The Social To-Do List </div>
+   </header>
+
+<% if user_signed_in? %>
+	<div class="navbox">
+    	<div class="button"> <%= link_to 'Home', root_path %></div>
+    	<div class="button"><%= link_to 'My Profile', current_user %></div>
+    	<div class="button"> <%= link_to 'Edit Your User', edit_user_registration_path %></div>
+    	<div class="rightbutton"><%= link_to 'Log Out', destroy_user_session_path, :method=>'delete' %></div>
+ 	</div>
+<% end %> 
+
+<div class="authform">
+  <div class="signinbubble">
+  <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :role => 'form'}) do |f| %>
+    <div class = "pagetitle"> Sign up </div>
+    <% if devise_error_messages! %>
+      <%= devise_error_messages! %>
+    <% end %>
+    <div class="form-group">
+      <%= f.text_field :name, :autofocus => true, class: 'field', placeholder: 'Name' %>
+    </div>
+    <div class="form-group">
+      <%= f.email_field :email, class: 'field', placeholder: 'Email' %>
+    </div>
+    <div class="form-group">
+      <%= f.password_field :password, class: 'field', placeholder: 'Password' %>
+    </div>
+    <div class="form-group">
+      <%= f.password_field :password_confirmation, class: 'field', placeholder: 'Password confirmation' %>
+    </div>
+     <%= f.submit 'Sign up', :class => 'clicky' %>
+  <% end %>
+</div>
+</div>
+<footer class="footer">
+    <table>
+      <tr> 
+        <th class="footer"> Column 1 </th>
+        <th class="footer"> Column 2 </th>
+        <th class="footer"> Column 3 </th>
+        <th class="footer"> Column 4 </th>
+      </tr>
+      <tr>
+        <td> <a href="" class="footer"> Link 1 </a> </td>
+        <td> <a href="" class="footer"> Link 2 </a> </td>
+        <td> <a href="" class="footer"> Link 3 </a> </td>
+        <td> <a href="" class="footer"> Link 4 </a> </td>
+      </tr>
+      <tr> 
+        <td> <a href="" class="footer"> Link 1 </a> </td>
+        <td> <a href="" class="footer"> Link 2 </a> </td>
+        <td> <a href="" class="footer"> Link 3 </a> </td>
+        <td> <a href="" class="footer"> Link 4 </a> </td>
+      </tr>
+      <tr> 
+        <td> <a href="" class="footer"> Link 1 </a> </td>
+        <td> <a href="" class="footer"> Link 2 </a> </td>
+        <td> <a href="" class="footer"> Link 3 </a> </td>
+      </tr>
+    </table>
+    <hr style="width: 40%">
+    <p style="text-align: center; color: white; margin-top: 10">
+      <br>
+      © Akriti, Natalia, Ivette in 2015
+    </p>
+  </footer>
+
+</div>
+</body>
+</html>

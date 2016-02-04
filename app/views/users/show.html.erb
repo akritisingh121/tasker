@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>
+		Tasker
+	</title>
+	<link rel="stylesheet" type="text/css" href="style.css" media="screen">
+</head>
+
+<body>
+	<div class="wrapper">
+		<header class="header">
+			<%= link_to 'Tasker', root_path, class: 'taskertitle'%>
+	  		<div class="taskersub"> The Social To-Do List </div>
+		</header>
+
+		<div class="navbox">
+			<div class="button"> <%= link_to 'Home', root_path %></div>
+			<% if user_signed_in? %>
+				<div class="button"><%= link_to 'My Profile', current_user %></div>
+				<div class="rightbutton"><%= link_to 'Log Out', destroy_user_session_path, :method=>'delete' %></div>
+				<div class="rightbutton"><%= link_to 'Welcome,', edit_user_registration_path %> <%= current_user.name %> </div>
+			<% else %>
+  				<div class="rightbutton"><%= link_to 'Log In', user_session_path %></div>
+  				<div class="rightbutton"><%= link_to 'Sign Up', new_user_registration_path %></div> 
+			<% end %> 
+		</div>
+
+		<div class="main">
+
+			<% if user_signed_in? %>
+			<div class="wholewrapper">
+			<div class="taskbox">
+				<img src="/left_arrow.png" alt="rss feed" class="arrow"/>
+				<% if user_signed_in? %>
+					<div class="pagetitle"> My To-Do List </div>
+					<hr>
+        			<% if current_user.tasks.empty? %>
+            			<p>No Tasks!</p>
+        			<% else %>
+        				<% current_user.tasks.each do |task| %>
+	        			<% if not task.finished %>
+	        			<div class="tasklist">
+					          <%= simple_form_for task do |f| %>
+					      			<div class="strike">
+									<%= f.submit '✓', :class => 'check'%> 
+									<%= task.todo %></div>
+							</div>
+							<% end %>
+						<% end %>
+						<% end %>
+        			<% end %>
+				 	<div class="clicky"> <%= link_to 'Create Task', tasks_new_path%></div>
+				 <% else %> 
+				 	<div class = "signinmsg">Log in to display your tasks!</div>
+			<% end %>
+			</div>
+			<div class="showwrapper">
+				
+				<div class="userbox">
+					<div class="profinfo">
+						<div class="userinfo">
+							<div class="profpic"> </div>
+							<div class="username"><%= @user.name if @user.name %></div> 
+							<div class="useremail"><%= @user.email if @user.email %></div>
+						</div>
+						<div class="userbio"><%= @user.bio if @user.bio %></div>
+						
+					</div>
+			</div>
+
+			<div class="navbox"> 
+
+				<a class="button" href="#list-following">Friends: <%= @user.friends.count %>  </a>
+
+				<% if @user != current_user && @not_following %>
+							<%=link_to "Follow", friend_path(:id => @user.id), :class => 'button', :method => :post %>
+						<% else %>
+							<% if @user != current_user %>
+							<div style="display:inline-block;"> 
+								<%= link_to "Unfollow", destroy_path(id: @user.id), :class => 'button', :method => :patch %> 
+							</div>
+							<br>
+						<% end %>
+						<% end %>
+
+			</div>
+
+			<div id="list-following" class="overlay">
+				<div class="popup">
+					<h2>Following</h2>
+					<a class="close" href="#">×</a>
+					<div class="lala">
+						
+										
+					<% @user.friends.each do |friend| %>
+						<%= link_to friend.name, friend %>
+						<% if @user == current_user %>
+							<div style="display:inline-block;"> 
+								<%= link_to "Unfollow", destroy_path(id: friend), :class => 'smallbutton', :method => :patch %> 
+							</div>
+						<% end %>
+						<% if @not_following %>
+							<div style="display:inline-block;"> 
+								<%= link_to "Follow", destroy_path(id: friend), :class => 'smallbutton', :method => :patch %> 
+							</div>
+						<% end %>
+						<br>
+						<br>
+						<% end %>
+
+						<% if @user.friends.empty? %>
+            				<p>This user is not following anyone!</p>
+            			<% end %>
+
+					</div>
+				</div>
+			</div>
+
+
+
+			<div class="profpage-info">
+
+			<% if @user != current_user %>
+
+				<div class="mytasks">
+					<div class= "pagetitle">Tasks</div>
+					<h4> Main Priority </h4>
+	        		<% if @user.tasks.empty? %>
+	            		<p>Woohoo! You have no tasks!</p>
+	        		<% else %>
+	        			<table>
+	           				 <% @user.tasks.each do |task| %>
+	            				<% if task.priority and not task.finished%>
+		            				<% if @user == current_user %> 
+		            					<div>
+		            						<tr>
+		            							<td>
+		            								<div style="display:inline-block;margin-right:10px"> 
+														<%= simple_form_for task do |f| %>
+		                               						<%= f.submit '✓', :class => 'check'%>
+		                               						<%= task.todo %>
+		                           						<% end %>
+		                        					</div>
+		                    					</td>
+		                   						<td>
+													<div style="display:inline-block;"> 
+			        									<%= button_to "Give Up", delete_path(id: task), :class => 'smallbutton', :method => :patch %> 
+			        								</div>
+			        							</td>
+			        						</tr>
+			        					</div>
+									<% else %>
+										<%= task.todo %>
+									<% end %>
+								<% end %>
+	            			<% end %>
+	            		</table>
+	        		<% end %>
+	    			<h4> Other Tasks</h4>
+	        			<% if @user.tasks.empty? %>
+	            			<p>No Tasks!</p>
+	        			<% else %>
+				            <% @user.tasks.each do |task| %>
+				            	<% if not task.finished and not task.priority %>
+					            	<% if @user == current_user %> 
+					            		<div>
+        									<table>
+	            								<tr>
+	            									<td>
+	            										<div style="display:inline-block;margin-right:10px"> 
+															<%= simple_form_for task do |f| %>
+								                               <%= f.submit '✓', :class => 'check'%>
+								                               <%= task.todo %>
+								                            <% end %>
+	                       								</div>
+								                    </td>
+								                    <td>
+														<div style="display:inline-block;"> 
+									        				<%= button_to "Give Up", delete_path(id: task), :class => 'smallbutton', :method => :patch %>
+									        			</div>
+						 								<div style="display:inline-block;"> 
+						                                	<%= button_to "✮", prioritize_path(id: task), :class => 'smallbutton', :method => :patch %> 
+						                            	</div>
+						                            </td>
+						                        </tr>
+                    						</table>	
+							        	</div>
+									<% else %>
+										<%= task.todo %>
+									<% end %>
+								<% end %>
+					        <% end %>
+					    <% end %>
+
+						<% if current_user == @user %>
+							<div class="clicky"> 
+								<%= link_to "New Task", tasks_new_path %> 
+							</div>
+						<% end %>
+				</div>
+				<% end %>
+
+				<div class="finishedtasks">
+					<div class= "pagetitle">Finished Tasks</div>
+	        		<% if @user.tasks.empty? %>
+	            		<p>No Tasks!</p>
+	        		<% else %>
+	        			<table>
+		        			<% @user.tasks.each do |task| %>
+		        				<% if task.finished %>
+		        					<% if @user == current_user %>
+		        						<tr>
+		        							<td>
+								        		 <%= task.todo %>
+								        	</td>
+								        	<td>
+								        		<div style="display:inline-block;"> 
+								        			<%= button_to "Delete", delete_path(id: task), :class => 'smallbutton', :method => :patch %> 
+								        		</div>
+								        	</td>
+								        	<br>
+								       	</tr>
+					        		<% else %>
+					        			<tr>
+		        							<td>
+								        		 <%= task.todo %>
+								        	</td>
+								        </tr>
+					        		<% end %>
+						        <% end %>
+						    <% end %>
+					    </table>
+				    <% end %>
+				</div>
+
+
+			</div>
+
+
+			<% end %>
+			</div>
+			</div>
+		</div>
+		<footer class="footer">
+			Copyrighted by us in 2015
+		</footer>
+	</div>
+</body>
+</html>
+
