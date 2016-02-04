@@ -29,3 +29,12 @@ Akriti:  User Model & UI
 
 Home Screen:
 (https://raw.github.com/akritisingh121/tasker/master/homescreen.png)
+
+Edit User Screen:
+(https://raw.github.com/akritisingh121/tasker/master/edit.png)
+
+Newsfeed:
+(https://raw.github.com/akritisingh121/tasker/master/feed.png)
+
+Profile View:
+(https://raw.github.com/akritisingh121/tasker/master/profileview.png)
