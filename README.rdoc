@@ -27,4 +27,4 @@ Natalia: Task Model & Task relations
 Ivette: Friendship Model & User connections
 Akriti:  User Model & UI
 
-![alt tag](https://master/homescreen.png)
+![alt tag](https://homescreen.png)
