@@ -26,3 +26,5 @@ Division of Labor:
 Natalia: Task Model & Task relations
 Ivette: Friendship Model & User connections
 Akriti:  User Model & UI
+
+![alt tag](https://raw.github.com/akritisingh121/tasker/master/homescreen.png)
