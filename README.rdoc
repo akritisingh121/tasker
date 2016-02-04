@@ -27,4 +27,5 @@ Natalia: Task Model & Task relations
 Ivette: Friendship Model & User connections
 Akriti:  User Model & UI
 
-![alt tag](https://github.com/akritisingh121/tasker/homescreen.png)
+Home Screen:
+(https://raw.github.com/akritisingh121/tasker/master/homescreen.png)
